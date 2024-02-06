@@ -1,0 +1,16 @@
+{
+  "name": "react-webdriverio-init",
+  "version": "1.0.0",
+  "description": "Skeleton project for testing React components with WebdriverIO",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "React",
+    "WebdriverIO",
+    "Skeleton"
+  ],
+  "author": "Andrei-Constantin Alexandru",
+  "license": "ISC"
+}
