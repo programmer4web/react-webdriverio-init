@@ -5,7 +5,7 @@
   "main": "src/main.js",
   "scripts": {
     "dev": "npx parcel src/index.html",
-    "test": "npx wdio run ./wdio.conf.js"
+    "test": "wdio run ./wdio.conf.js"
   },
   "keywords": [
     "React",
@@ -18,12 +18,19 @@
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.15.7",
-    "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
+    "@testing-library/webdriverio": "^3.2.1",
+    "@vitejs/plugin-react": "^4.2.1",
+    "@wdio/browser-runner": "^8.30.0",
     "@wdio/cli": "^8.30.0",
-    "process": "^0.11.10"
+    "@wdio/devtools-service": "^8.30.0",
+    "@wdio/mocha-framework": "^8.30.0",
+    "@wdio/spec-reporter": "^8.30.0",
+    "process": "^0.11.10",
+    "react": "^18.2.0"
   }
 }
