@@ -1,0 +1,1 @@
+console.log("React components testing with WebdriverIO");
