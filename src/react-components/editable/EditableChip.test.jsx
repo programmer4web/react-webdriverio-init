@@ -1,23 +1,52 @@
 import React from 'react';
-import { expect } from '@wdio/globals';
-import { render, fireEvent, screen } from '@testing-library/react';
+import {render, fireEvent} from '@testing-library/react';
 import EditableChip from './EditableChip';
 import * as matchers from '@testing-library/jest-dom/matchers';
 expect.extend(matchers);
 
 describe('EditableChip Tests', () => {
-    it('renders deletable chip', () => {
-        render(<EditableChip />);
-        const chip = screen.getByRole('button');
-        expect(chip).toBeInTheDocument();
+    it('renders chip with initial label', () => {
+        const {getByText} = render(<EditableChip/>);
+        const chipLabel = getByText('Romania');
+        expect(chipLabel).toBeInTheDocument();
     });
 
-    it('clicking delete makes the icon to not be displayed', async () => {
-        render(<EditableChip />);
+    it('clicking on chip should show text field', () => {
+        const {getByRole, getByTestId} = render(<EditableChip/>);
+        const chip = getByRole('button', {name: 'Romania'});
+        fireEvent.click(chip);
+        const textField = getByTestId('chip-text');
+        expect(textField).toBeInTheDocument();
+    });
 
-        const deleteIcon = screen.getByRole('button');
-        await fireEvent.click(deleteIcon);
+    it('changing text in text field should update label', () => {
+        const {getByRole, getByDisplayValue} = render(<EditableChip/>);
+        const chip = getByRole('button', {name: 'Romania'});
+        fireEvent.click(chip);
+        const textField = getByDisplayValue('Romania');
+        fireEvent.change(textField, {target: {value: 'Italy'}});
+        expect(textField).toHaveValue('Italy');
+    });
 
-        expect(deleteIcon).not.toBeDisplayed();
+    it('blurring text field should update chip label', () => {
+        const {getByRole, getByDisplayValue, getByText} = render(
+            <EditableChip/>);
+        const chip = getByRole('button', {name: 'Romania'});
+        fireEvent.click(chip);
+        const textField = getByDisplayValue('Romania');
+        fireEvent.change(textField, {target: {value: 'Italy'}});
+        fireEvent.blur(textField);
+        const updatedChipLabel = getByText('Italy');
+        expect(updatedChipLabel).toBeInTheDocument();
+    });
+
+    it('deleting chip should hide both chip and text field', () => {
+        const {getByRole, queryByRole, getByTestId} = render(<EditableChip/>);
+        const chip = getByRole('button', {name: 'Romania'});
+        fireEvent.click(chip);
+        const deleteIcon = getByTestId('CancelIcon');
+        fireEvent.click(deleteIcon);
+        const deletedChip = queryByRole('button', {name: 'Romania'});
+        expect(deletedChip).toBeNull();
     });
 });

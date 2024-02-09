@@ -42,12 +42,13 @@ const EditableChip = () => {
                                           '& .MuiChip-deleteIcon': {
                                           },
                                       }}
+                                      name="Romania"
                                       title="Romania"
                                       label={label}
                                       onClick={handleClick}
                                       onDelete={handleDelete} />
                 }
-                {textFieldVisible && <TextField id="chip-text"
+                {textFieldVisible && <TextField data-testid="chip-text"
                                                 style={{ position: 'absolute', left: '16px', width: '128px', }}
                                                 sx={{
                                                     '& .MuiInputBase-input': {
